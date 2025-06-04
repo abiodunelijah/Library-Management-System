@@ -3,12 +3,12 @@ This Library Management System is a web-based application designed to manage boo
 
 # Requirements
 Java  
-Springboot
-PostgresSQL
-JavaScript
-HTML
+Springboot  
+PostgresSQL  
+JavaScript  
+HTML  
 CSS
 
 # Tools
-Intellij IDEA Ultimate
-Dbeaver Ultimate
+Intellij IDEA Ultimate  
+Dbeaver Ultimate  
