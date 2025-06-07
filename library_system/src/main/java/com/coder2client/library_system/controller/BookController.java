@@ -3,6 +3,8 @@ package com.coder2client.library_system.controller;
 import com.coder2client.library_system.dto.BookDTO;
 import com.coder2client.library_system.entity.Book;
 import com.coder2client.library_system.service.BookService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/books")
 public class BookController {
+
+    private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 
     private final BookService bookService;
 
@@ -23,6 +27,8 @@ public class BookController {
     @PostMapping("addBook")
     //url: http://localhost:8081/api/v1/books/addBook
     public ResponseEntity<BookDTO> addBook(@RequestBody BookDTO bookDTO) {
+
+        logger.info("Adding a book .....");
 
         BookDTO savedBookDTO = bookService.addBook(bookDTO);
 

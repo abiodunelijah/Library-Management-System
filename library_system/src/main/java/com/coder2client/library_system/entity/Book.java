@@ -3,7 +3,7 @@ package com.coder2client.library_system.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
+@Data
 @Entity
 @Table(name="books")
 public class Book {
@@ -36,75 +36,4 @@ public class Book {
     @Column(nullable = false)
     private String barcodeNumber;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    public Integer getYearOfPublication() {
-        return yearOfPublication;
-    }
-
-    public void setYearOfPublication(Integer yearOfPublication) {
-        this.yearOfPublication = yearOfPublication;
-    }
-
-    public String getPlaceOfPublication() {
-        return placeOfPublication;
-    }
-
-    public void setPlaceOfPublication(String placeOfPublication) {
-        this.placeOfPublication = placeOfPublication;
-    }
-
-    public Integer getNoOfAvailableCopies() {
-        return noOfAvailableCopies;
-    }
-
-    public void setNoOfAvailableCopies(Integer noOfAvailableCopies) {
-        this.noOfAvailableCopies = noOfAvailableCopies;
-    }
-
-    public String getBarcodeNumber() {
-        return barcodeNumber;
-    }
-
-    public void setBarcodeNumber(String barcodeNumber) {
-        this.barcodeNumber = barcodeNumber;
-    }
 }

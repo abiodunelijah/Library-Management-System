@@ -16,49 +16,55 @@ import java.time.format.DateTimeFormatter;
 
 @Data
 @Component
+@Builder
 @AllArgsConstructor
 public class CheckoutRegisterMapper {
 
-    private static MemberRepository memberRepository;
-    private static BookRepository bookRepository;
+    private  MemberRepository memberRepository;
+    private  BookRepository bookRepository;
 
     //map Entity to DTO
 
-    public static CheckoutRegisterDTO mapEntityToDTO(CheckoutRegister checkoutRegister){
+    public CheckoutRegisterDTO mapEntityToDTO(CheckoutRegister checkoutRegister){
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_DATE_TIME;
 
-       return CheckoutRegisterDTO.builder()
-               .id(checkoutRegister.getId())
-               .memberId(checkoutRegister.getMember().getId())
-               .bookId(checkoutRegister.getBook().getId())
-               .checkout(checkoutRegister.getCheckoutDate().format(dateTimeFormatter))
-               .dueDate(checkoutRegister.getDueDate().format(dateTimeFormatter))
-               .returnDate(checkoutRegister.getReturnDate().format(dateTimeFormatter))
-               .overdueFine(checkoutRegister.getOverdueFine())
-               .build();
+        CheckoutRegisterDTO checkoutRegisterDTO = new CheckoutRegisterDTO();
+        checkoutRegisterDTO.setId(checkoutRegister.getId());
+        checkoutRegisterDTO.setMemberId(checkoutRegister.getMember().getId());
+        checkoutRegisterDTO.setBookId(checkoutRegister.getBook().getId());
+
+        checkoutRegisterDTO.setCheckout(checkoutRegister.getCheckoutDate().format(dateTimeFormatter));
+        checkoutRegisterDTO.setDueDate(checkoutRegister.getDueDate().format(dateTimeFormatter));
+        checkoutRegisterDTO.setReturnDate(checkoutRegister.getReturnDate().format(dateTimeFormatter));
+        checkoutRegisterDTO.setOverdueFine(checkoutRegister.getOverdueFine());
+
+        return checkoutRegisterDTO;
+
     }
 
     //map DTO Entity
-    public static CheckoutRegister mapDtoToEntity(CheckoutRegisterDTO checkoutRegisterDTO){
-        Member member = new Member();
-        if (checkoutRegisterDTO.getId() != null){
-            member = memberRepository.findById(checkoutRegisterDTO.getId()).get();
+    public CheckoutRegister mapDtoToEntity(CheckoutRegisterDTO checkoutRegisterDTO){
+        CheckoutRegister checkoutRegister = new CheckoutRegister();
+        checkoutRegister.setId(checkoutRegisterDTO.getId());
+
+        if (checkoutRegisterDTO.getMemberId() !=null) {
+            Member member = memberRepository.findById(checkoutRegisterDTO.getMemberId()).get();
+            checkoutRegister.setMember(member);
+        }
+        if (checkoutRegisterDTO.getBookId() != null) {
+            Book book = bookRepository.findById(checkoutRegisterDTO.getBookId()).get();
+            checkoutRegister.setBook(book);
         }
 
-        Book book = new Book();
-        if (checkoutRegisterDTO.getId() != null){
-            book = bookRepository.findById(checkoutRegisterDTO.getBookId()).get();
+        checkoutRegister.setCheckoutDate(LocalDate.parse(checkoutRegisterDTO.getCheckout()));
+        checkoutRegister.setDueDate(LocalDate.parse(checkoutRegisterDTO.getDueDate()));
+        if (checkoutRegisterDTO.getReturnDate() != null){
+            checkoutRegister.setReturnDate(LocalDate.parse(checkoutRegisterDTO.getReturnDate()));
         }
 
+        checkoutRegister.setOverdueFine(checkoutRegisterDTO.getOverdueFine());
 
-        return CheckoutRegister.builder()
-                .id(checkoutRegisterDTO.getId())
-                .member(member)
-                .book(book)
-                .checkoutDate(LocalDate.parse(checkoutRegisterDTO.getCheckout()))
-                .dueDate(LocalDate.parse(checkoutRegisterDTO.getDueDate()))
-                .returnDate(LocalDate.parse(checkoutRegisterDTO.getReturnDate()))
-                .overdueFine(checkoutRegisterDTO.getOverdueFine())
-                .build();
+        return checkoutRegister;
+
     }
 }

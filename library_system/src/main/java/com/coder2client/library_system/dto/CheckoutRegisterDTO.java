@@ -1,12 +1,12 @@
 package com.coder2client.library_system.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CheckoutRegisterDTO {
 
     private Long id;
